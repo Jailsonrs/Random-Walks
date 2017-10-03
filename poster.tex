@@ -1,0 +1,275 @@
+\documentclass[22pt]{sciposter}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{epsfig,color,pifont}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{graphicx}
+%\usepackage{algorithm,algorithmic}
+\hyphenation{li-te-ra-tu-ra}
+
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{pslatex}
+
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage{dsfont}
+
+
+\newcommand{\re}{\mathds{R}}
+\newcommand{\z}{\mathds{Z}}
+\newcommand{\n}{\mathds{N}}
+\newcommand{\e}{\mathds{E}}
+\newcommand{\p}{\mathds{P}}
+\newcommand{\cp}{\stackrel{{\p}}{\longrightarrow}}%Convergência em Probabilidade
+\newcommand{\cqc}{\stackrel{q.c}{\longrightarrow}}%Convergência q.c
+\newcommand{\cd}{\stackrel{{\cal {D}}}{\longrightarrow}}%Convergência emDistribuição
+\newcommand{\clp}{\stackrel{$L_p$}{\longrightarrow}}%Convergência em L_p
+\newcommand{\ind}{\mathds{1}}% Definindo a função indicadora
+
+\newcommand{\iid}{\stackrel{\textrm{iid}}{\sim}} % definindo iid
+\newcommand{\aal}{\stackrel{\textrm{aa}}{\sim}} % definindo aa
+
+\newcommand{\var}{\textrm{Var}} % Definindo a função Variância
+\newcommand{\cov}{\textrm{Cov}} % Definindo a função Covariância
+\newcommand{\med}{\textrm{Med}} % Definindo a função Covariância
+
+\newcommand{\balpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bmu}{\mbox{\boldmath $\mu$}}
+\newcommand{\bphi}{\mbox{\boldmath $\phi$}}
+\newcommand{\bPhi}{\mbox{\boldmath $\Phi$}}
+\newcommand{\bnu}{\mbox{\boldmath $\nu$}}
+\newcommand{\bSigma}{\mbox{\boldmath $\Sigma$}}
+\newcommand{\bepsilon}{\mbox{\boldmath $\epsilon$}}
+\newcommand{\bLambda}{\mbox{\boldmath $\Lambda$}}
+\newcommand{\bbeta}{\mbox{\boldmath $\beta$}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\bTheta}{\mbox{\boldmath $\Theta$}}
+\newcommand{\bxi}{\mbox{\boldmath $\xi$}}
+\newcommand{\bvarphi}{\mbox{\boldmath $\varphi$}}
+\newcommand{\bnabla}{\mbox{\boldmath $\nabla$}}
+\newcommand{\bDelta}{\mbox{\boldmath $\Delta$}}
+\newcommand{\bdelta}{\mbox{\boldmath $\delta$}}
+\newcommand{\bPsi}{\mbox{\boldmath $\Psi$}}
+\newcommand{\bpsi}{\mbox{\boldmath $\psi$}}
+\newcommand{\btau}{\mbox{\boldmath $\tau$}}
+\newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
+\newcommand{\bOmega}{\mbox{\boldmath $\Omega$}}
+\newcommand{\bomega}{\mbox{\boldmath $\omega$}}
+\newcommand{\bUpsilon}{\mbox{\boldmath $\Upsilon$}}
+\newcommand{\bgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bGamma}{\mbox{\boldmath $\Gamma$}}
+\newcommand{\neta}{\mbox{\boldmath $\eta$}}
+\newcommand{\brho}{\mbox{\boldmath $\rho$}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\K}{\mathbf{K}}
+\newcommand{\U}{\mathbf{U}}
+
+\newcommand{\zbeta}{\pmb{\beta}}
+
+%\usepackage{fancybullets}
+%\usepackage{other packages you may want to use}
+
+\definecolor{BoxCol}{RGB}{50,91,255}
+% uncomment for grey background to \section boxes
+% for use with default option boxedsections
+
+%\definecolor{BoxCol}{rgb}{0.9,0.9,1}
+% uncomment for light blue background to \section boxes
+% for use with default option boxedsections
+
+%\definecolor{SectionCol}{rgb}{0,0,0.5}
+% uncomment for dark blue \section text
+
+
+\title{SIMULAÇÃO ESTOCÁSTICA USANDO O SOFTWARE R: UM ESTUDO SOBRE PASSEIOS ALEATÓRIOS}
+
+% Note: only give author names, not institute
+\author{}
+\institute{\large {Autor: Jailson Rodrigues de Souza\\
+ Orientadores: Prof. Juvêncio S. Nobre} e Prof. Luis Gustavo B. Pinho\\
+ 
+\vspace{0.4cm}
+{\large
+{\textbf{\textcolor{black}{UNIVERSIDADE FEDERAL DO CEARÁ - UFC}}}\\
+{\textbf{\textcolor{black}{Departamento de Estatística e Matemática Aplicada - DEMA}
+}}}}
+\rightlogo[1.35]{EU}
+\leftlogo[0.9]{brasao-ufc}
+%\email{you@mail.com}  % shows author email address below institute
+
+%\date %is unused by the current
+%\maketitle
+
+% The following commands can be used to alter the default logo settings
+  % defines logo to left of title (with scale factor)
+  % same but on right
+%\logo [1]{PET}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%*** print the poster header defined above: title, authors, affiliations:
+  \maketitle
+%*** multi-columns environement, change {3} --> {2} if only 2 colums desired:
+  \begin{multicols}{3}
+\begin{normalsize}
+
+\section{Introdução}\PARstart{P}{a}sseios aleatórios constituem uma classe importante de processos estocásticos denominados processos markovianos ou processos de Markov. Devido as suas inúmeras aplicações, que podem ser encontradas em áreas como física de partículas, física de polímeros, teoreia cinética das reações químicas, Astronomia, crescimento populacional, redes neurais, carinogênese, previsão de tendêcias no mercado financeiro, gestão de risco, algoritmos de suavização de imagens e Até o Page Rank, algoritimo de classificação de páginas em que é baseado o motor de buscas da Google, criamos um aplicativo web que torna possível a visualização de passeios aletórios simétricos tendo como fim proporcionar ao ensino desse assunto uma visão geométrica e servir também como uma fonte de evidências empíricas para comprovação ou refutação de resultados teóricos. A seguir definiremos cadeias de markov, processos estocásticos, apresentaremos um algoritmo simples para simulção de passeios aleatórios e, por fim, apresentaremos o aplicativo.
+
+
+\vspace{-0.8cm}
+\section{Processos estocásticos e cadeias de Markov}
+\PARstart{U}{m} processo estocástico é uma família de variáveis aleatórias $\{Z_t\}, \ t \in \tau,$ com uma certa estrutura de dependência entre si, podendo essa estrutura variar de diferentes maneiras. Aqui, $\tau$ não é necessariamente um conjunto enumerável. Assim, um proceso estocástico pode ser visto como uma sequência de variáveis aleatórias definidas em um mesmo espaço de probabilidade. Nesse trabalho falaremos apenas de processos estocásticos em que $\tau$ é um conjunto enumerável Assim, uma cadeja de Markov em tempo discreto e espaço de estados discreto é um processo estocástico que satisfaz a suposição markoviana.\
+\\
+\\
+Definição 1: Seja $\{\X_n\}_{n \geq 0}$ uma família de variáveis aleatórias definidas em um mesmo espaço de probablidade $(\pmb{ \Omega }, \mathcal{A}, \mathbb{P})$.  Seja $ \pmb{ \lambda} = \{\lambda_i; \ i = 1,2,\ldots, n \}$ um vetor satisfazendo $\lambda_i \geq 0$ e $ \sum_{i=1}^n \lambda_i = 1$ e $\mathbf{S}$ um espaço de estados.
+Dizemos que essa família de variáveis aleatórias é uma cadeia de Markov em tempo discreto e espaço de estados discreto se para qualquer sequência de estados $\{i_0,i_1,i_2,\ldots,i_{n-2},i_{n-1},i,j \},$\\
+
+\begin{enumerate}
+\item[1)] $\mathbb{P}(X_n = j | X_{n-1} = i ,\ldots , X_0 = i_0 ) = \mathbb{P}(X_n = j | X_{n-1} = i) \\ = p(i,j), \ \quad \forall \ i, \ j \  \in  \ \mathbb{Z}^d $.
+\item[2)] $\mathbb{P}(X_0 = i_0) = \lambda_{i_0} $.
+\end{enumerate}
+A propriedade (1) é usualmente chamada de propriedade Markoviana. Chamaremos o vetor $\pmb{\lambda_i}$ de distribuição inicial da cadeia de Markov.
+\\
+\\
+Cadeias de Markov discretas em tempo discreto podem ser representadas por grafos dirigidos. Por simplicidade, um grafo pode ser pensado como um par ordenado $G = (V,A)$, em que $V$ é um conjunto de vértices e  $A$ um conjunto de arestas. Um grafo dirigido é um grafo em que cada aresta possui uma direção associada. Portanto, uma cadeia de Markov pode ser representada associando a cada vértice um estado $i,j,\ldots	$ e a cada aresta correspondente ao estado $i$ a probabilidade de transição $p(i,j)$.
+\\
+\begin{normalsize}
+\begin{figure}[!htp]
+\centering
+\includegraphics[scale=0.7]{grafo1.png}
+\caption{Representação geométrica de uma cadeia de Markov discreta em tempo discreto com três estados.}
+\begin{flushleft}
+\begin{tiny}
+Fonte: Wikipedia
+\end{tiny}
+\end{flushleft}
+
+\label{fig:}
+\end{figure}
+\end{normalsize}
+
+\section{Passeios Aleatórios}
+\PARstart{S}{u}ponha que uma partícula possa mover-se somente em quatro direções, esquerda, direita, para cima e para baixo, e que a cada instante, ela dê passos de tamanho unitário. Suponha ainda que no instante $n=0$, ela se encontre na posição $\pmb{S_0} = \pmb{0} $, isto é, na origem de $\mathbb{Z}^2$. A próxima posição da partícula, $\pmb{S_1}$, será determinada da seguinte forma: sorteia-se uma das quatro possíveis direções mencionadas anteriormente, cada uma com probabilidade $1/4$ de ser escolhida, e define-se recursivamente a nova posição da partícula como sendo $\pmb{S_1} = \pmb{S_0} + \pmb{X} $ , onde $\pmb{X}$ é um vetor aleatório discreto com distribuição uniforme em $\{(0,1),(-1,0),(0,-1),(1,0) \}$. Assim, o processo estocástico $\pmb{S_n} = \pmb{S_0+X_1+X_2+,\ldots,+X_{n}}$ em que 
+$\pmb{X_1,X_2},\ldots,\pmb{X_n}\stackrel{iid}{\sim} \pmb{X}$ denota a posição da partícula em $\mathbb{Z}^2$ é dito ser um passeio aleatório simétrico em $\mathbb{Z}^2$. Ademais, perceba que a próxima posição da partícula só depende de sua posição atual. \\
+A proxima imagem mostra a realização de um passeio aleatório simples em $\mathbb{Z}^2$  com $\mathbb{P}(\pmb{S_0} = \pmb{0}) = 1$.\\
+\\
+\begin{small}
+\begin{figure}[!htp]
+\centering
+\includegraphics[scale=0.7]{r.jpg} 
+\caption{Realização de um passeio aleatório simples em duas dimensões com 300 passos.}
+\label{fig:}
+\end{figure}
+\end{small}
+\vspace{-3cm}
+\section{Passeios Aleatórios Simétrico em $\mathbb{Z}^d$}
+\quad \PARstart{A}{p}artir da definição anterior podemos generalizar a definição de passeio aleatório em $\mathbb{Z}^d$  para valores de $d \geq 3$, como sendo uma cadeia de markov $\pmb{S_n}, \ n \ge 0$ tal que sua função de transição satisfaça 
+\begin{equation}
+  p(0,y)=\left\{	
+  \begin{array}{@{}ll@{}}
+    \frac{1}{2d}, & \text{se}\ \| y \|=1 \\
+    0, & \text{Caso Contrário.}
+  \end{array}\right.
+\end{equation} 
+Em que $\| x \|$ é a distância do ponto x à origem.
+\section{Algorítmo}
+\PARstart{A} seguinte função escrita na linguagem R pode ser utilizada para gerar passeios aleatórios simétricos em $\mathbb{\Z}^1$ e $\mathbb{Z}^2$
+\begin{small}
+\begin{verbatim}
+passeio <- function(a,n,d){
+    estadosz1 <- c(-1,1)
+    estadosz2 <- data.frame(c(1,0), c(0,1), c(0,-1), c(-1,0))    
+    x = numeric(length(n+1))
+    y = numeric(length(n+1))
+    z = numeric(length(n+1))	
+    Sn = numeric(length(n+1))    
+    if(d == 1){     
+        Sn[1] <- a
+        passos  <- sample(c(-1,1), n, replace=T)
+        Sn[1:n+1] <- cumsum(passos)+a
+    }
+    else if(d == 2){
+        passos <- sample(estadosz2,n,replace=T)
+        x[1] <- a[1]
+        y[1] <- a[2]
+        x[2:n] <- cumsum(unlist(passos[1,]))+a[1]
+        y[2:n] <- cumsum(unlist(passos[2,]))+a[2]
+        Sn <- data.frame(x,y)		      
+    }
+  	return(Sn)
+ } 
+\end{verbatim}
+\end{small}
+
+A função acima recebe como parâmetros o ponto inicial $a$, o número de passos $n$ e a dimensão $d$ do espaço de estados \ $\mathbb{Z}^d$.
+\section{O aplicativo}
+
+\PARstart{O}{a}plicativo	para simulação e visualização de passeios aletórios simétricos foi densenvolvido no framework shiny, que é um conjunto de ferramentas para desenvolvimento de aplicações estatísticas interativas, que podem ser executadas diretamente do navegador de internet, usando a linguagem R, sem a necessadade de instalação direta no sistema operacional do usuário.A seguir temos algumas imagens exemplificando o funcionamento do aplicativo. \\
+\vspace{1cm}
+
+\begin{small}
+\begin{figure}[!htp]
+\centering
+\includegraphics[scale=0.51]{rw1d500k.png} 
+\caption{Tela do app simulando um passeio aleatorio em 1-D}
+\label{fig:Tela do app simulando um passeio aleatorio em 1-D}
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[scale=0.51]{rwdefinitivo.png} 
+\caption{Tela do app simulando um passeio aleatorio em 2-D.}
+\label{fig:Tela do app simulando um passeio aleatorio em 2-D}
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[scale=0.51]{rw3d.png} 
+\caption{Tela do app simulando um passeio aleatorio em 3-D.}
+\label{fig:Tela do app simulando um passeio aleatorio em 3-D}
+\end{figure}
+\end{small}
+
+%
+\section{Conclusão}
+\PARstart{C}{o}m esse trabalho pretende-se fazer com que os alunos da disciplina de processos estocásticos percebam o potencial dos passeios aleatórios através de meios empíricos que os livros geralmente não abordam, tornando fácil a compreensão e mostrando ao alunoa simplicidade da idéia básica desse processo. Até o presente momento as ferramentas estão em  fase de testes  e continuam em desenvolvimento. Pretende-se futuramente aperfeiçoá-las, visando incorporarnas mesmas outros tipos de passeios aleatórios e ferramentas para analisá-los.
+\vspace{1cm}
+\section{Agradecimentos}
+\PARstart{A}{o} apoio financeiro concedido pela PROGRAD - Pró-Reitoria de Graduação.
+\begin{thebibliography}{m}
+%\footnotesize{
+
+\bibitem{}
+Spitzer, F.(1964). \textit{Principles of random walk}, 2nd edition. Springer: New York.
+\bibitem{}
+Norris, J.R. (1997). \textit{Markov Chains}, Cambrige University Press: Cambrige.
+\bibitem{}
+Zhaobin, W, Wang, H. (2016). Image Smoothing With Generalized Random Walks: Algorithm and Applications. \textit{Applied Soft Computing}, \textbf{46}, 792-804.
+\bibitem{}
+Kannan, D. (1979). \textit{An Introduction to Stochastic Process}, Nort Holland: New York.
+%}
+  \end{thebibliography}
+\end{normalsize}
+
+    \end{multicols}
+\end{document}
+
