@@ -1,4 +1,4 @@
-# Random-Walks poster
+# Stochastic Simulation Using R - Randon Walk
 
 ## Introduction 
 
