@@ -1,4 +1,4 @@
-# Random-Walks
+# Random-Walks poster
 
 ## Introduction 
 
