@@ -6,4 +6,4 @@ A Randon Walk is a elementary type of stochastic process that have many applicat
 
 This repository contains a poster made in LaTeX that explains and propose an algorithm for simulating such stochastic process.
 
-![alt file](poster.png)
+![alt text](poster.png)
